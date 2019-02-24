@@ -1,0 +1,94 @@
+
+
+sudo apt install qemu-kvm qemu libvirt-bin virtinst virt-manager virt-viewer
+
+sudo apt install bridge-utils
+
+
+[sudo?] qemu-img create -f qcow2 ubuntu.img 10G
+
+
+安装系统
+sudo qemu-system-x86_64 -hda ubuntu.img -cdrom ../../../Software/ubuntu-16.04.5-desktop-amd64.iso -boot d -m 
+
+sudo qemu-system-x86_64 -machine ubuntu,accel=kvm -smp cpus=4 -m 4096 -hda ubuntu.img -cdrom ../../../Software/ubuntu-16.04.5-desktop-amd64.iso -boot d
+
+正常启动
+
+sudo qemu-system-x86_64 -machine ubuntu,accel=kvm -smp cpus=4 -m 4096 -hda ubuntu.img
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img
+
+//false: sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -netdev tap,id=tap0 -device e1000,id=tap0
+
+//false: sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -netdev bridge,id=tap0,br=br0 -device e1000,id=tap0
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -netdev type=tap,id=net0,script=no,downscript=no -device virtio-net-device,netdev=net0
+
+//false: sudo qemu-system-x86_64 -machine ubuntu,accel=kvm -smp cpus=4 -m 4096 -hda ubuntu.img -netdev bridge,id=tap0,br=br0 -device e1000,id=tap0
+
+
+
+sudo qemu-system-x86_64  -smp cpus=4 -m 4096 -hda ubuntu.img
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -net nic -net user
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -net tap,vlan=0 -net nic,vlan=0,model=e1000,macaddr=52:54:00:12:34:56
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -net tap,vlan=0 -net nic,vlan=0,model=e1000
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -net tap -net nic,model=e1000
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -netdev type=tap,id=net0 -device virtio-net-pci,netdev=net0
+
+
+//results
+
+sudo vim /etc/network/interfaces
+
+    auto br0
+    iface br0 inet dhcp
+    bridge_ports enp0s31f6
+    bridge_stp off
+    bridge_fd 0
+    bridge_maxwait 0
+
+sudo reboot
+    
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -netdev tap,id=tap0 -device e1000,netdev=tap0
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -netdev bridge,id=tap0 -device e1000,netdev=tap0  // default bridge is br0
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -netdev bridge,id=tap0,br=br0 -device e1000,netdev=tap0
+
+
+
+//pass through
+
+
+sudo vim /etc/default/grub
+
+cmdline add: intel_iommu=on
+
+sudo update grub
+
+
+lspci
+
+virsh nodedev-list | grep 05_00_0
+
+virsh nodedev-dettach pci_0000_05_00_0
+
+//may use virt-manager
+
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img 
+
+
+//failure: sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -smp cpus=4 -m 4096 -hda ubuntu.img -device pci-assign,host=05:00.0
+
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -device vfio-pci,host=05:00.0,id=hostdev0,bus=pci.0,addr=0x9
+
+sudo kvm -smp cpus=4 -m 4096 -hda ubuntu.img -device vfio-pci,host=05:00.0

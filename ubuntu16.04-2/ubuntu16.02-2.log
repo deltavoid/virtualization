@@ -1,0 +1,23 @@
+2019-02-23 11:13:09.424+0000: starting up libvirt version: 1.3.1, package: 1ubuntu10.24 (Marc Deslauriers <marc.deslauriers@ubuntu.com> Wed, 23 May 2018 13:29:29 -0400), qemu version: 2.5.0 (Debian 1:2.5+dfsg-5ubuntu10.34), hostname: zqy-desktop
+LC_ALL=C PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin QEMU_AUDIO_DRV=spice /usr/bin/kvm-spice -name ubuntu16.02-2 -S -machine pc-i440fx-xenial,accel=kvm,usb=off -cpu Broadwell-IBRS -m 4096 -realtime mlock=off -smp 4,sockets=4,cores=1,threads=1 -uuid dc89a8fb-da0b-4020-b22a-336c652abadf -no-user-config -nodefaults -chardev socket,id=charmonitor,path=/var/lib/libvirt/qemu/domain-ubuntu16.02-2/monitor.sock,server,nowait -mon chardev=charmonitor,id=monitor,mode=control -rtc base=utc,driftfix=slew -global kvm-pit.lost_tick_policy=discard -no-hpet -no-reboot -global PIIX4_PM.disable_s3=1 -global PIIX4_PM.disable_s4=1 -boot strict=on -device ich9-usb-ehci1,id=usb,bus=pci.0,addr=0x6.0x7 -device ich9-usb-uhci1,masterbus=usb.0,firstport=0,bus=pci.0,multifunction=on,addr=0x6 -device ich9-usb-uhci2,masterbus=usb.0,firstport=2,bus=pci.0,addr=0x6.0x1 -device ich9-usb-uhci3,masterbus=usb.0,firstport=4,bus=pci.0,addr=0x6.0x2 -device virtio-serial-pci,id=virtio-serial0,bus=pci.0,addr=0x5 -drive file=/var/lib/libvirt/images/ubuntu16.02-2.qcow2,format=qcow2,if=none,id=drive-ide0-0-0 -device ide-hd,bus=ide.0,unit=0,drive=drive-ide0-0-0,id=ide0-0-0,bootindex=2 -drive file=/home/zqy/Software/ubuntu-16.04.5-desktop-amd64.iso,format=raw,if=none,id=drive-ide0-0-1,readonly=on -device ide-cd,bus=ide.0,unit=1,drive=drive-ide0-0-1,id=ide0-0-1,bootindex=1 -netdev tap,fd=26,id=hostnet0 -device rtl8139,netdev=hostnet0,id=net0,mac=52:54:00:41:6a:c4,bus=pci.0,addr=0x3 -chardev pty,id=charserial0 -device isa-serial,chardev=charserial0,id=serial0 -chardev spicevmc,id=charchannel0,name=vdagent -device virtserialport,bus=virtio-serial0.0,nr=1,chardev=charchannel0,id=channel0,name=com.redhat.spice.0 -spice port=5900,addr=127.0.0.1,disable-ticketing,image-compression=off,seamless-migration=on -device qxl-vga,id=video0,ram_size=67108864,vram_size=67108864,vgamem_mb=16,bus=pci.0,addr=0x2 -device intel-hda,id=sound0,bus=pci.0,addr=0x4 -device hda-duplex,id=sound0-codec0,bus=sound0.0,cad=0 -chardev spicevmc,id=charredir0,name=usbredir -device usb-redir,chardev=charredir0,id=redir0 -chardev spicevmc,id=charredir1,name=usbredir -device usb-redir,chardev=charredir1,id=redir1 -device virtio-balloon-pci,id=balloon0,bus=pci.0,addr=0x7 -msg timestamp=on
+char device redirected to /dev/pts/20 (label charserial0)
+main_channel_link: add main channel client
+main_channel_handle_parsed: net test: latency 1.028000 ms, bitrate 25924050632 bps (24723.101265 Mbps)
+red_dispatcher_set_cursor_peer: 
+inputs_connect: inputs channel client create
+red_channel_client_disconnect: rcc=0x55993eeb4940 (channel=0x55993dc6c220 type=3 id=0)
+red_channel_client_disconnect: rcc=0x7f13e4231c20 (channel=0x7f13e420b990 type=2 id=0)
+red_channel_client_disconnect: rcc=0x55993ec1bac0 (channel=0x55993dfed1e0 type=9 id=0)
+red_channel_client_disconnect: rcc=0x55993edf93f0 (channel=0x55993dfc9a20 type=9 id=1)
+red_channel_client_disconnect: rcc=0x7f13e428ec60 (channel=0x7f13e420bf60 type=4 id=0)
+red_channel_client_disconnect_dummy: rcc=0x55993ecf0cd0 (channel=0x55993dfebe60 type=5 id=0)
+snd_channel_put: SndChannel=0x55993edd5220 freed
+red_channel_client_disconnect_dummy: rcc=0x55993ec83e00 (channel=0x55993dfec150 type=6 id=0)
+snd_channel_put: SndChannel=0x55993efa7800 freed
+red_channel_client_disconnect: rcc=0x55993ebb0940 (channel=0x55993dc60ca0 type=1 id=0)
+main_channel_client_on_disconnect: rcc=0x55993ebb0940
+red_client_destroy: destroy client 0x55993ec211f0 with #channels=6
+red_dispatcher_disconnect_cursor_peer: 
+red_dispatcher_disconnect_display_peer: 
+2019-02-23T11:14:28.640372Z qemu-system-x86_64: terminating on signal 15 from pid 1113
+2019-02-23 11:14:28.840+0000: shutting down

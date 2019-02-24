@@ -1,0 +1,12 @@
+e1000.rombar=uint32
+e1000.autonegotiation=bool (on/off)
+e1000.bootindex=int32
+e1000.multifunction=bool (on/off)
+e1000.command_serr_enable=bool (on/off)
+e1000.romfile=str
+e1000.mitigation=bool (on/off)
+e1000.vlan=int32 (Integer VLAN id to connect to)
+e1000.addr=int32 (Slot and optional function number, example: 06.0 or 06)
+e1000.extra_mac_registers=bool (on/off)
+e1000.mac=str (Ethernet 6-byte MAC Address, example: 52:54:00:12:34:56)
+e1000.netdev=str (ID of a netdev to use as a backend)
