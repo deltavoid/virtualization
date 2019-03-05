@@ -42,3 +42,15 @@ https://www.chenyudong.com/archives/add-pci-pass-through-device-to-guest-vm-with
 
 
 https://blog.csdn.net/xdfwsl/article/details/80722412
+
+
+
+
+vfio
+
+http://www.cnblogs.com/vancasola/p/9378970.html
+
+https://blog.csdn.net/zgy666/article/details/78649777
+
+http://www.bubuko.com/infodetail-2131473.html
+
