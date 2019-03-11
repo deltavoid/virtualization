@@ -1,5 +1,7 @@
 
 
+bios open cpu virtualization option
+
 sudo apt install qemu-kvm qemu libvirt-bin virtinst virt-manager virt-viewer
 
 sudo apt install bridge-utils
