@@ -1,0 +1,89 @@
+
+
+/home/zqy/Software/debian-live-10.0.0-amd64-standard.iso
+
+../boot/vmlinuz-5.0.0-27-generic
+../boot/initrd.img-5.0.0-27-generic
+
+qemu-img create -f qcow2 debian10-std.qcow2 40g
+
+install:
+sudo /usr/bin/qemu-system-x86_64 \
+-M pc -m 4G -cpu host \
+-no-user-config \
+-enable-kvm \
+-nographic \
+-name "debian9-base" \
+-smp sockets=2,cores=4,threads=1 \
+-mem-prealloc \
+-cdrom /home/zqy/Software/debian-live-10.0.0-amd64-standard.iso \
+-drive file=./guest-base.qcow2,format=qcow2,if=none,id=drive0,readonly=off \
+-device virtio-blk-pci,drive=drive0,id=drive0-dev,bootindex=1 \
+-netdev user,id=vnet,hostfwd=:0.0.0.0:10027-:22 -device virtio-net-pci,netdev=vnet \
+-vnc :13 \
+-boot c
+
+sudo qemu-system-x86_64 \
+-M pc -name "debian10-std" \
+-no-user-config \
+-enable-kvm \
+-m 4G -mem-prealloc \
+-cpu host -smp sockets=2,cores=4,threads=1 \
+-cdrom /home/zqy/Software/debian-live-10.0.0-amd64-standard.iso \
+-drive file=debian10-std.qcow2,format=qcow2,if=none,id=drive0 \
+-device virtio-blk-pci,drive=drive0,id=drive0-dev,bootindex=1 \
+-netdev user,id=vnet,hostfwd=:0.0.0.0:10027-:22 \
+-device virtio-net-pci,netdev=vnet \
+-nographic \
+-vnc :13 \
+-boot c
+
+vncviewer
+
+ssh localhost -p 10027
+
+run:
+remove cdrom 
+
+sudo qemu-system-x86_64 \
+-M pc -name "debian10-std" \
+-no-user-config \
+-enable-kvm \
+-m 4G -mem-prealloc \
+-cpu host -smp sockets=2,cores=4,threads=1 \
+-drive file=debian10-std.qcow2,format=qcow2,if=none,id=drive0 \
+-device virtio-blk-pci,drive=drive0,id=drive0-dev,bootindex=1 \
+-netdev user,id=vnet,hostfwd=:0.0.0.0:10027-:22 \
+-device virtio-net-pci,netdev=vnet \
+-nographic \
+-vnc :13 \
+-boot c
+
+
+run using initrd:
+sudo qemu-system-x86_64 \
+-M pc -name "debian10-std" \
+-no-user-config \
+-enable-kvm \
+-m 4G -mem-prealloc \
+-cpu host -smp sockets=2,cores=4,threads=1 \
+-kernel ../boot/vmlinuz-5.0.0-27-generic \
+-initrd ../boot/initrd.img-5.0.0-27-generic \
+-append 'console=tty0 console=ttyS0' \
+-nographic \
+-vnc :14
+
+
+sudo qemu-system-x86_64 \
+-M pc -name "debian10-std" \
+-no-user-config \
+-enable-kvm \
+-m 4G -mem-prealloc \
+-cpu host -smp sockets=2,cores=4,threads=1 \
+-kernel ../boot/vmlinuz-5.0.0-27-generic \
+-initrd ../boot/initrd.img-5.0.0-27-generic \
+-append 'root=/dev/vda1 console=tty0 console=ttyS0' \
+-drive file=debian10-std.qcow2,format=qcow2,if=none,id=drive0 \
+-device virtio-blk-pci,drive=drive0,id=drive0-dev,bootindex=1 \
+-nographic \
+-vnc :14

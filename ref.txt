@@ -61,3 +61,35 @@ https://blog.csdn.net/zgy666/article/details/78649777
 
 http://www.bubuko.com/infodetail-2131473.html
 
+
+
+
+架构 
+  
+    芯片组（总线）， 虚拟化， CPU， 内存
+
+文件
+
+    
+
+网络
+
+图形
+
+    -nographic
+
+
+https://sq.163yun.com/blog/article/175668619278782464
+
+https://www.cnblogs.com/hellogc/p/7482066.html
+
+
+
+
+
+initrd
+
+https://blog.csdn.net/feixiaoxing/article/details/38474353
+
+https://blog.csdn.net/absurd/article/details/78984244
+
