@@ -26,7 +26,7 @@ vnc:
 	vncviewer localhost:59$(VNCPort)
 
 ssh:
-	ssh localhost -p 100$(SSHPort)
+	ssh zqy@localhost -p 100$(SSHPort)
 
 
 install: $(Image)
